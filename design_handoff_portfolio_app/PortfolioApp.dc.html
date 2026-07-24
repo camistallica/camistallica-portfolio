@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-7ae95c95-efd6-4c00-a303-b6d36850c395/styles.css">
+<script src="_ds/nocturne-7ae95c95-efd6-4c00-a303-b6d36850c395/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+@keyframes noc-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes noc-bar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@keyframes noc-blink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes noc-drift{from{background-position:0 0}to{background-position:120px 120px}}
+</style>
+</helmet>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" dark="{{ true }}" hint-size="412px,892px">
+<div data-scope="{{ uid }}" style="--bg:#161826;--surf:#232532;--raise:#292b31;--ink:#e9e9ed;--dim:#9397ab;--line:rgba(233,233,237,0.16);--acc:#9184d9;--accdim:#5d5294;--acctint:rgba(145,132,217,0.14);--blend:lighten;position:relative;width:100%;height:100%;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:'Inter Tight',Helvetica,system-ui,sans-serif;overflow:hidden;cursor:none;transition:background 420ms ease,color 420ms ease" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}">
+
+  <div style="position:absolute;inset:-40px;pointer-events:none;z-index:60;opacity:.3;mix-blend-mode:overlay;animation:noc-drift 6s steps(6) infinite;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:59;background:radial-gradient(120% 80% at 50% 0%,transparent 40%,rgba(0,0,0,.55) 100%)"></div>
+  <div style="position:absolute;left:0;top:0;width:22px;height:22px;border:1px solid var(--acc);border-radius:50%;pointer-events:none;z-index:80;margin:-11px 0 0 -11px;transition:width 160ms ease,height 160ms ease,background 160ms ease,opacity 200ms ease;opacity:0"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:75;background:var(--acc);transform:scaleY(0);transform-origin:bottom;mix-blend-mode:hard-light"></div>
+
+  <header style="position:relative;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px 10px;border-bottom:1px solid var(--line);background:var(--bg)">
+    <button data-hot onClick="{{ goHome }}" style="display:flex;align-items:center;gap:9px;background:none;border:0;padding:0;cursor:none;color:inherit;text-align:left">
+      <span style="display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--acc);color:var(--acc);font-family:'Archivo Black',Helvetica,sans-serif;font-size:11px;letter-spacing:-.02em">CF</span>
+      <span style="display:flex;flex-direction:column;line-height:1.05">
+        <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:12px;letter-spacing:.02em;text-transform:uppercase">Camila Ferreira</span>
+        <span data-en="Mobile Dev · Kotlin" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);white-space:nowrap">Dev Mobile · Kotlin</span>
+      </span>
+    </button>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button data-hot onClick="{{ toggleLang }}" style="position:relative;display:flex;align-items:center;gap:0;border:1px solid var(--line);background:none;padding:0;cursor:none;border-radius:3px;overflow:hidden;color:var(--ink)">
+        <span style="position:relative;padding:5px 7px;font-size:9.5px;font-weight:600;letter-spacing:.12em">PT<i style="{{ ptFill }}"></i></span>
+        <span style="position:relative;padding:5px 7px;font-size:9.5px;font-weight:600;letter-spacing:.12em">EN<i style="{{ enFill }}"></i></span>
+      </button>
+      <button data-hot onClick="{{ toggleTheme }}" title="Tema" style="display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--line);background:none;cursor:none;border-radius:3px;color:var(--ink);font-size:12px">
+        <span style="{{ themeGlyph }}"></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="position:relative;z-index:20;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none" onScroll="{{ onScroll }}">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <sc-if value="{{ heroPoster }}" hint-placeholder-val="{{ true }}">
+          <section style="position:relative;height:430px;overflow:hidden;border-bottom:1px solid var(--line)">
+            <div data-par="0.28" style="position:absolute;inset:-40px -0px 0;mix-blend-mode:var(--blend);opacity:.62">
+              <image-slot id="hero-poster" shape="rect" fit="cover" placeholder="Arraste um retrato (fundo escuro)"></image-slot>
+            </div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--bg) 55%,transparent) 45%,var(--bg) 100%);pointer-events:none"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 16px 18px;pointer-events:none">
+              <div data-rev style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+                <span style="width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--acc))"></span>
+                <span data-en="Portfolio 2026 · São Paulo" style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)">Portfólio 2026 · São Paulo</span>
+              </div>
+              <h1 data-rev style="margin:0;font-family:'Archivo Black',Helvetica,sans-serif;font-size:66px;line-height:.82;letter-spacing:-.045em;text-transform:uppercase;transform:scaleY(1.12);transform-origin:bottom left">Camila<br>Ferreira</h1>
+              <p data-rev data-en="I build mobile apps that hold up. Kotlin, Swift, Flutter — dark by default." style="margin:20px 0 0;max-width:270px;font-size:12.5px;line-height:1.5;color:var(--dim);text-wrap:pretty">Construo apps mobile que aguentam o tranco. Kotlin, Swift, Flutter — escuro por padrão.</p>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{ heroSetlist }}">
+          <section style="position:relative;padding:26px 16px 8px">
+            <div>
+              <div>
+                <span data-en="Side A · Setlist" style="display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:10px">Lado A · Setlist</span>
+                <h1 style="margin:0;font-family:'Archivo Black',Helvetica,sans-serif;font-size:52px;line-height:.8;letter-spacing:-.045em;text-transform:uppercase">Dev<br>Mobile<br><span style="color:transparent;-webkit-text-stroke:1px var(--acc)">Kotlin</span></h1>
+              </div>
+            </div>
+            <p data-rev data-en="Two technical degrees, a CS degree in progress, and a folder of apps that ship." style="margin:18px 0 0;font-size:12.5px;line-height:1.5;color:var(--dim);text-wrap:pretty">Duas formações técnicas, ADS em andamento e uma pasta de apps que realmente saem do forno.</p>
+          </section>
+          <nav style="display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:18px">
+            <sc-for list="{{ setlist }}" as="row" hint-placeholder-count="5">
+              <button data-hot onClick="{{ row.go }}" style="position:relative;display:flex;align-items:center;gap:12px;padding:15px 16px;background:none;border:0;border-bottom:1px solid var(--line);cursor:none;color:inherit;text-align:left;overflow:hidden" style-hover="padding-left:22px">
+                <span style="font-size:10px;letter-spacing:.1em;color:var(--acc);font-variant-numeric:tabular-nums">{{ row.n }}</span>
+                <span style="flex:1;font-family:'Archivo Black',Helvetica,sans-serif;font-size:19px;letter-spacing:-.02em;text-transform:uppercase">{{ row.label }}</span>
+                <span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)">{{ row.meta }}</span>
+                <span style="font-size:13px;color:var(--acc)">→</span>
+              </button>
+            </sc-for>
+          </nav>
+        </sc-if>
+
+        <sc-if value="{{ heroCollage }}">
+          <section style="position:relative;padding:22px 14px 26px;overflow:hidden">
+            <div style="position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(96deg,transparent 0 22px,rgba(233,233,237,.05) 22px 23px);pointer-events:none"></div>
+            <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start">
+              <div style="grid-column:1 / -1;position:relative;padding:2px 0 4px">
+                <h1 style="margin:0;font-family:'Archivo Black',Helvetica,sans-serif;font-size:46px;line-height:.82;letter-spacing:-.045em;text-transform:uppercase;mix-blend-mode:difference">Faço<br>Apps<br>No<br>Escuro</h1>
+                <span data-en="Cut &amp; paste, 2026" style="position:absolute;right:2px;top:8px;transform:rotate(7deg);background:var(--acc);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 8px">Corte e cole, 2026</span>
+              </div>
+              <div data-par="0.14" style="position:relative;height:150px;border:1px solid var(--line);background:var(--raise);transform:rotate(-2.2deg);display:flex;flex-direction:column;justify-content:space-between;padding:10px;overflow:hidden">
+                <span style="position:absolute;inset:0;opacity:.6;background:repeating-linear-gradient(74deg,transparent 0 9px,color-mix(in srgb,var(--ink) 7%,transparent) 9px 10px);pointer-events:none"></span>
+                <span data-en="main stack" style="position:relative;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)">stack principal</span>
+                <span style="position:relative;font-family:'Archivo Black',Helvetica,sans-serif;font-size:29px;line-height:.86;letter-spacing:-.035em;text-transform:uppercase">Kotlin<br><span style="color:transparent;-webkit-text-stroke:1px var(--acc)">Swift</span></span>
+                <span style="position:relative;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)">nativo · iOS + Android</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div data-par="0.22" style="position:relative;height:88px;border:1px solid var(--line);background:var(--surf);transform:rotate(1.6deg);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px;overflow:hidden">
+                  <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:21px;line-height:.9;letter-spacing:-.03em;text-transform:uppercase">Flutter</span>
+                  <span data-en="cross-platform" style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)">multiplataforma</span>
+                  <span style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)">+ Node.js</span>
+                </div>
+                <p data-en="Kotlin · Swift · Flutter. Curious, methodical, allergic to lazy UI." style="margin:0;font-size:11.5px;line-height:1.45;color:var(--dim);text-wrap:pretty">Kotlin · Swift · Flutter. Curiosa, metódica, alérgica a UI preguiçosa.</p>
+              </div>
+            </div>
+          </section>
+          <div style="overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 0;background:var(--surf)">
+            <div style="display:flex;width:max-content;gap:26px;animation:noc-marquee 18s linear infinite;font-family:'Archivo Black',Helvetica,sans-serif;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--acc);white-space:nowrap">
+              <span>Kotlin ✳ Compose ✳ SwiftUI ✳ Flutter ✳ KMP ✳ Firebase ✳ Kotlin ✳ Compose ✳ SwiftUI ✳ Flutter ✳ KMP ✳ Firebase ✳</span>
+              <span>Kotlin ✳ Compose ✳ SwiftUI ✳ Flutter ✳ KMP ✳ Firebase ✳ Kotlin ✳ Compose ✳ SwiftUI ✳ Flutter ✳ KMP ✳ Firebase ✳</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <section style="padding:22px 16px 8px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px">
+            <h2 data-en="Featured" style="margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Em destaque</h2>
+            <button data-hot onClick="{{ goWork }}" style="background:none;border:0;padding:0;cursor:none;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)" data-en="all projects →">todos os projetos →</button>
+          </div>
+          <sc-for list="{{ featured }}" as="p" hint-placeholder-count="2">
+            <button data-hot onClick="{{ p.open }}" style="position:relative;display:flex;gap:12px;width:100%;padding:10px;margin-bottom:10px;background:var(--surf);border:1px solid var(--line);border-radius:8px;cursor:none;color:inherit;text-align:left;overflow:hidden;transition:transform 220ms ease,border-color 220ms ease" style-hover="transform:translateY(-2px);border-color:var(--acc)">
+              <div style="flex:none;width:76px;height:76px;border-radius:5px;border:1px solid var(--line);background:var(--raise);display:grid;place-items:center;overflow:hidden">
+                <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:25px;letter-spacing:-.02em;color:var(--acc)">{{ p.n }}</span>
+              </div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+                <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:17px;line-height:1;letter-spacing:-.02em;text-transform:uppercase">{{ p.title }}</span>
+                <span style="font-size:11.5px;line-height:1.4;color:var(--dim)">{{ p.blurb }}</span>
+                <span style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)">{{ p.tagStr }}</span>
+              </div>
+            </button>
+          </sc-for>
+        </section>
+
+        <section style="margin:6px 16px 26px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surf);display:flex;align-items:center;gap:11px">
+          <div style="display:flex;align-items:flex-end;gap:2.5px;height:22px">
+            <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out infinite"></i>
+            <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .15s infinite"></i>
+            <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .3s infinite"></i>
+            <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .45s infinite"></i>
+          </div>
+          <div style="flex:1;min-width:0">
+            <span data-en="Now compiling to" style="display:block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">Compilando ao som de</span>
+            <span style="display:block;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ nowPlaying }}</span>
+          </div>
+          <button data-hot onClick="{{ goSound }}" style="flex:none;background:none;border:1px solid var(--acc);color:var(--acc);cursor:none;border-radius:3px;padding:6px 9px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase" data-en="playlist">trilha</button>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isWork }}">
+      <div>
+        <div style="padding:20px 16px 12px">
+          <h2 style="margin:0;font-family:'Archivo Black',Helvetica,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase" data-en="Projects">Projetos</h2>
+          <p style="margin:8px 0 0;font-size:11.5px;color:var(--dim)"><span style="color:var(--acc);font-variant-numeric:tabular-nums">{{ count }}</span> <span data-en="items · filter by stack">itens · filtre por stack</span></p>
+          <div style="display:flex;align-items:center;gap:7px;margin-top:10px">
+            <i style="{{ liveDot }}"></i>
+            <span style="font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)">{{ liveLabel }}</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none">
+          <sc-for list="{{ tagChips }}" as="t" hint-placeholder-count="5">
+            <button data-hot onClick="{{ t.pick }}" style="position:relative;flex:none;border:1px solid var(--line);background:none;cursor:none;border-radius:99px;padding:6px 11px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:inherit;overflow:hidden">
+              <i style="{{ t.fill }}"></i>
+              <span style="{{ t.txt }}">{{ t.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding:0 16px 26px">
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+            <button data-hot data-rev onClick="{{ p.open }}" style="position:relative;display:block;width:100%;padding:0;background:var(--surf);border:1px solid var(--line);border-radius:8px;cursor:none;color:inherit;text-align:left;overflow:hidden;transition:transform 240ms cubic-bezier(.2,.7,.2,1),border-color 240ms ease" style-hover="transform:translateY(-3px);border-color:var(--acc)">
+              <div style="display:flex;align-items:center;gap:10px;padding:12px 12px 0">
+                <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:11px;letter-spacing:.06em;color:var(--acc)">{{ p.n }}</span>
+                <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)"></span>
+                <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);white-space:nowrap">{{ p.meta }}</span>
+              </div>
+              <div style="padding:12px 12px 13px;display:flex;flex-direction:column;gap:6px">
+                <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:21px;line-height:1;letter-spacing:-.025em;text-transform:uppercase">{{ p.title }}</span>
+                <span style="font-size:12px;line-height:1.45;color:var(--dim);text-wrap:pretty">{{ p.blurb }}</span>
+                <span style="display:flex;gap:5px;flex-wrap:wrap;margin-top:2px">
+                  <sc-for list="{{ p.tags }}" as="tg" hint-placeholder-count="2">
+                    <span style="border:1px solid var(--line);border-radius:99px;padding:3px 8px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)">{{ tg }}</span>
+                  </sc-for>
+                </span>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasExtras }}">
+          <div style="padding:0 16px 26px">
+            <h3 data-en="Other repositories" style="margin:0 0 10px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Outros repositórios</h3>
+            <div style="display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)">
+              <sc-for list="{{ extras }}" as="r" hint-placeholder-count="3">
+                <a data-hot href="{{ r.url }}" target="_blank" rel="noreferrer" style="background:var(--surf);padding:11px 12px;display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit" style-hover="background:var(--raise)">
+                  <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                    <span style="font-size:12.5px;font-weight:600;line-height:1.2">{{ r.name }}</span>
+                    <span style="font-size:10.5px;line-height:1.4;color:var(--dim);text-wrap:pretty">{{ r.desc }}</span>
+                  </span>
+                  <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap">{{ r.lang }}</span>
+                  <span style="font-size:11px;color:var(--acc)">↗</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDetail }}">
+      <div>
+        <div style="position:relative;padding:14px 16px 20px;border-bottom:1px solid var(--line);overflow:hidden">
+          <span style="position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(96deg,transparent 0 22px,color-mix(in srgb,var(--ink) 6%,transparent) 22px 23px);pointer-events:none"></span>
+          <button data-hot onClick="{{ back }}" style="position:relative;background:none;border:1px solid var(--line);color:var(--ink);cursor:none;border-radius:3px;padding:6px 10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase" style-hover="border-color:var(--acc);color:var(--acc)" data-en="← back">← voltar</button>
+          <div style="position:relative;margin-top:18px">
+            <span style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+              <span style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)">{{ detail.n }} · {{ detail.year }}</span>
+              <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--acc),transparent)"></span>
+            </span>
+            <h2 style="margin:0;font-family:'Archivo Black',Helvetica,sans-serif;font-size:40px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase">{{ detail.title }}</h2>
+          </div>
+        </div>
+        <div style="padding:18px 16px 26px;display:flex;flex-direction:column;gap:18px">
+          <p style="margin:0;font-size:13px;line-height:1.55;text-wrap:pretty">{{ detail.long }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)">
+            <sc-for list="{{ detail.specs }}" as="s" hint-placeholder-count="4">
+              <div style="background:var(--surf);padding:11px 12px">
+                <span style="display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:4px">{{ s.k }}</span>
+                <span style="font-size:12px;font-weight:600">{{ s.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div>
+            <h3 data-en="What I learned" style="margin:0 0 9px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">O que aprendi</h3>
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ detail.notes }}" as="nt" hint-placeholder-count="3">
+                <li style="display:flex;gap:9px;font-size:12.5px;line-height:1.45;color:var(--ink)"><span style="color:var(--acc)">▪</span><span style="flex:1;text-wrap:pretty">{{ nt }}</span></li>
+              </sc-for>
+            </ul>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a data-hot href="{{ detail.repo }}" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:space-between;border:1px solid var(--acc);border-radius:3px;padding:11px 12px;color:var(--acc);text-decoration:none;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="background:var(--acctint)"><span>{{ detail.repoLabel }}</span><span>↗</span></a>
+            <sc-if value="{{ detail.hasLive }}" hint-placeholder-val="{{ true }}">
+              <a data-hot href="{{ detail.live }}" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:3px;padding:11px 12px;color:var(--ink);text-decoration:none;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="border-color:var(--acc);color:var(--acc)"><span>{{ detail.liveLabel }}</span><span>↗</span></a>
+            </sc-if>
+          </div>
+          <button data-hot onClick="{{ nextProject }}" style="align-self:flex-start;background:none;border:1px solid var(--acc);color:var(--acc);cursor:none;border-radius:3px;padding:9px 13px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">{{ nextLabel }}</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTime }}">
+      <div style="padding:20px 16px 26px">
+        <h2 style="margin:0 0 4px;font-family:'Archivo Black',Helvetica,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase" data-en="Timeline">Linha do tempo</h2>
+        <p data-en="Where I work and what each degree taught." style="margin:0 0 20px;font-size:11.5px;color:var(--dim)">Onde trabalho e o que cada formação ensinou.</p>
+        <h3 data-en="Experience" style="margin:0 0 10px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Experiência</h3>
+        <div data-rev style="border:1px solid var(--line);border-radius:8px;background:var(--surf);padding:13px 13px 14px;margin-bottom:26px">
+          <span style="display:flex;align-items:baseline;gap:9px;margin-bottom:7px">
+            <span style="font-family:'Archivo Black',Helvetica,sans-serif;font-size:11px;letter-spacing:.04em;color:var(--acc)">{{ job.period }}</span>
+            <span style="flex:1"></span>
+          </span>
+          <span style="display:block;font-family:'Archivo Black',Helvetica,sans-serif;font-size:19px;line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:5px">{{ job.role }}</span>
+          <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px">{{ job.company }}</span>
+          <span style="display:block;font-size:12px;line-height:1.5;color:var(--ink);text-wrap:pretty">{{ job.desc }}</span>
+          <span style="display:flex;flex-direction:column;gap:5px;margin-top:10px">
+            <sc-for list="{{ job.items }}" as="it" hint-placeholder-count="4">
+              <span style="display:flex;gap:8px;font-size:11px;line-height:1.4"><span style="color:var(--acc)">—</span><span style="flex:1;text-wrap:pretty">{{ it }}</span></span>
+            </sc-for>
+          </span>
+        </div>
+        <h3 data-en="Education" style="margin:0 0 12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Formação</h3>
+        <div style="position:relative;padding-left:20px">
+          <span style="position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,transparent,var(--acc) 12%,var(--acc) 88%,transparent)"></span>
+          <sc-for list="{{ timeline }}" as="e" hint-placeholder-count="6">
+            <div data-rev style="position:relative;padding-bottom:20px">
+              <span style="position:absolute;left:-20px;top:5px;width:9px;height:9px;border:1px solid var(--acc);background:var(--bg);border-radius:50%"></span>
+              <span style="display:block;font-family:'Archivo Black',Helvetica,sans-serif;font-size:13px;letter-spacing:.02em;color:var(--acc);margin-bottom:4px">{{ e.year }}</span>
+              <span style="display:block;font-size:14px;font-weight:600;line-height:1.25;margin-bottom:3px">{{ e.title }}</span>
+              <span style="display:block;font-size:11.5px;line-height:1.45;color:var(--dim);text-wrap:pretty">{{ e.desc }}</span>
+              <span style="display:flex;flex-direction:column;gap:5px;margin-top:9px">
+                <sc-for list="{{ e.items }}" as="it" hint-placeholder-count="4">
+                  <span style="display:flex;gap:8px;font-size:11px;line-height:1.4;color:var(--ink)"><span style="color:var(--acc)">—</span><span style="flex:1;text-wrap:pretty">{{ it }}</span></span>
+                </sc-for>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSkills }}">
+      <div style="padding:20px 16px 26px">
+        <h2 style="margin:0 0 4px;font-family:'Archivo Black',Helvetica,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase">Stack</h2>
+        <p data-en="Tap a block to see how I use it." style="margin:0 0 18px;font-size:11.5px;color:var(--dim)">Toque num bloco para ver como eu uso.</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ skills }}" as="s" hint-placeholder-count="7">
+            <button data-hot data-rev onClick="{{ s.toggle }}" style="display:block;width:100%;text-align:left;background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:11px 12px;cursor:none;color:inherit;transition:border-color 200ms ease" style-hover="border-color:var(--acc)">
+              <span style="display:flex;align-items:center;gap:10px">
+                <span style="flex:1;font-family:'Archivo Black',Helvetica,sans-serif;font-size:15px;letter-spacing:-.01em;text-transform:uppercase">{{ s.name }}</span>
+                <span style="display:flex;gap:3px">
+                  <sc-for list="{{ s.pips }}" as="pip" hint-placeholder-count="5">
+                    <i style="{{ pip }}"></i>
+                  </sc-for>
+                </span>
+                <span style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);width:52px;text-align:right">{{ s.years }}</span>
+              </span>
+              <sc-if value="{{ s.open }}">
+                <span style="display:block;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--dim);text-wrap:pretty">{{ s.note }}</span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSound }}">
+      <div>
+        <div style="padding:20px 16px 14px">
+          <h2 data-en="Soundtrack" style="margin:0 0 4px;font-family:'Archivo Black',Helvetica,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase">Trilha</h2>
+          <p data-en="What plays while the build runs — the rest is on Spotify." style="margin:0 0 14px;font-size:11.5px;color:var(--dim);text-wrap:pretty">O que toca enquanto o build roda — o resto está no Spotify.</p>
+          <a data-hot href="https://open.spotify.com/user/sv33925q40bufe2pt4tpeyx7w?si=0dc36fb848e34af2" target="_blank" rel="noreferrer" style="display:flex;align-items:center;gap:11px;border:1px solid var(--acc);border-radius:8px;padding:12px 13px;color:var(--acc);text-decoration:none" style-hover="background:var(--acctint)">
+            <span style="display:flex;align-items:flex-end;gap:2.5px;height:20px;flex:none">
+              <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out infinite"></i>
+              <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .15s infinite"></i>
+              <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .3s infinite"></i>
+              <i style="width:3px;height:100%;background:var(--acc);transform-origin:bottom;animation:noc-bar .9s ease-in-out .45s infinite"></i>
+            </span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span data-en="My profile on Spotify" style="font-size:12.5px;font-weight:600;letter-spacing:.02em">Meu perfil no Spotify</span>
+              <span data-en="all the playlists, for real" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)">todas as playlists, de verdade</span>
+            </span>
+            <span style="font-size:13px">↗</span>
+          </a>
+        </div>
+        <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+          <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="6">
+            <div style="position:relative;display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);text-align:left">
+              <span style="flex:none;width:16px;font-size:10px;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--acc)">{{ t.n }}</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
+                <span style="font-size:10.5px;letter-spacing:.06em;color:var(--dim)">{{ t.artist }}</span>
+              </span>
+              <span style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)">{{ t.mood }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAbout }}">
+      <div style="padding:20px 16px 26px">
+        <h2 data-en="About" style="margin:0 0 14px;font-family:'Archivo Black',Helvetica,sans-serif;font-size:36px;line-height:.85;letter-spacing:-.04em;text-transform:uppercase">Sobre</h2>
+        <div style="position:relative;height:228px;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:16px">
+          <image-slot id="about-portrait" shape="rect" fit="cover" src="assets/camila-portrait.png" placeholder="Arraste um retrato"></image-slot>
+          <span style="position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 88%,transparent));pointer-events:none"></span>
+          <span style="position:absolute;left:11px;bottom:9px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);pointer-events:none">Camila Ferreira</span>
+        </div>
+        <p data-en="I am a mobile developer, currently a software intern at SyOS — native iOS and Android, Flutter, and Node.js endpoints. Kotlin is home, Swift is the second language. Two technical degrees behind me, a CS degree at Mackenzie in progress." style="margin:0 0 12px;font-size:13px;line-height:1.55;text-wrap:pretty">Sou desenvolvedora mobile e hoje estagiária de software na SyOS — nativo iOS e Android, Flutter e endpoints em Node.js. Kotlin é casa, Swift é a segunda língua. Duas formações técnicas nas costas e ADS em andamento no Mackenzie.</p>
+        <p data-en="Curious to a fault, methodical by training, and I love an investigation — chasing a bug to its root is my favourite part. I like problems that ask for structure and interfaces that ask for taste." style="margin:0 0 20px;font-size:13px;line-height:1.55;color:var(--dim);text-wrap:pretty">Curiosa até doer, metódica por formação e apaixonada por uma boa investigação — caçar bug até a raiz é a parte que eu mais gosto. Gosto de problema que pede estrutura e de interface que pede gosto.</p>
+        <h3 data-en="Education" style="margin:0 0 9px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Formação</h3>
+        <div style="display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:20px">
+          <sc-for list="{{ education }}" as="ed" hint-placeholder-count="3">
+            <div style="background:var(--surf);padding:11px 12px;display:flex;flex-direction:column;gap:5px">
+              <span style="display:flex;align-items:baseline;gap:10px">
+                <span style="flex:1;font-size:12.5px;font-weight:600;line-height:1.3">{{ ed.title }}</span>
+                <span style="font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap">{{ ed.status }}</span>
+              </span>
+              <span style="font-size:10.5px;line-height:1.4;letter-spacing:.04em;color:var(--dim)">{{ ed.meta }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <h3 data-en="Get in touch" style="margin:0 0 9px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)">Contato</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a data-hot href="https://github.com/camistallica" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:space-between;border:1px solid var(--acc);border-radius:3px;padding:11px 12px;color:var(--acc);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="background:var(--acctint)"><span>github.com/camistallica</span><span>↗</span></a>
+          <a data-hot href="https://www.linkedin.com/in/camilaferreira07" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:3px;padding:11px 12px;color:var(--ink);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="border-color:var(--acc);color:var(--acc)"><span>in/camilaferreira07</span><span>↗</span></a>
+          <a data-hot href="mailto:camilaferri102@gmail.com" style="display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:3px;padding:11px 12px;color:var(--ink);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="border-color:var(--acc);color:var(--acc)"><span style="text-transform:none;letter-spacing:.04em">camilaferri102@gmail.com</span><span>↗</span></a>
+        </div>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <nav style="position:relative;z-index:40;display:flex;border-top:1px solid var(--line);background:var(--bg)">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+      <button data-hot onClick="{{ n.go }}" style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 10px;background:none;border:0;cursor:none;color:inherit">
+        <i style="{{ n.bar }}"></i>
+        <span style="{{ n.numStyle }}">{{ n.n }}</span>
+        <span style="{{ n.labelStyle }}">{{ n.label }}</span>
+      </button>
+    </sc-for>
+  </nav>
+</div>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:412,&quot;height&quot;:892},&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;poster&quot;,&quot;setlist&quot;,&quot;collage&quot;],&quot;default&quot;:&quot;poster&quot;,&quot;tsType&quot;:&quot;'poster' | 'setlist' | 'collage'&quot;,&quot;section&quot;:&quot;Home&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'home', prev: null, lang: 'pt', theme: 'dark', tag: 'all', pid: null, skill: null, repos: null, repoErr: false };
+
+  GH_USER = 'camistallica';
+
+  MONTHS = { pt: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'], en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] };
+
+  kickFetch() {
+    if (this._fetched) return;
+    this._fetched = true;
+    fetch('https://api.github.com/users/' + this.GH_USER + '/repos?per_page=100&sort=updated')
+      .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then(list => this.setState({ repos: Array.isArray(list) ? list : [] }))
+      .catch(() => this.setState({ repoErr: true }));
+  }
+
+  when(iso, en) {
+    const d = new Date(iso);
+    if (isNaN(d)) return '';
+    return this.MONTHS[en ? 'en' : 'pt'][d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  THEMES = {
+    dark: { '--bg': '#161826', '--surf': '#232532', '--raise': '#292b31', '--ink': '#e9e9ed', '--dim': '#9397ab', '--line': 'rgba(233,233,237,0.16)', '--acc': '#9184d9', '--accdim': '#5d5294', '--acctint': 'rgba(145,132,217,0.14)', '--blend': 'lighten' },
+    light: { '--bg': '#f3f5fe', '--surf': '#e4e7f5', '--raise': '#cfd3e5', '--ink': '#292b31', '--dim': '#595d6c', '--line': 'rgba(41,43,49,0.16)', '--acc': '#5d5294', '--accdim': '#423a6a', '--acctint': 'rgba(93,82,148,0.12)', '--blend': 'normal' }
+  };
+
+  PROJECTS = [
+    { id: 'satsmeter', n: '01', slot: 'p-satsmeter', year: '2026', tags: ['ESP32', 'Node', 'React', 'IoT'],
+      repo: 'https://github.com/camistallica/satsmeter', live: 'https://satsmeter.vercel.app',
+      pt: { title: 'SatsMeter', blurb: 'Infraestrutura de energia que cobra sozinha, em Bitcoin, sem intermediário.', long: 'Medidor de energia (ESP32 + INA219) publica consumo via MQTT; o backend Node converte mWh em sats e liquida do saldo do consumidor para o produtor. Saldo zerou → carência de 3 leituras → o relé corta. Recarregou acima do mínimo → religa sozinho. Dashboard React + TypeScript em tempo real por WebSocket.', notes: ['Fail-safe primeiro: silêncio do medidor nunca vira corte — queda de rede não é inadimplência.', 'Idempotência por tag: leitura repetida devolve o ACK anterior, sem cobrar duas vezes.', 'Histerese (3 leituras de carência + saldo mínimo para religar) mata o flapping do relé.'] },
+      en: { title: 'SatsMeter', blurb: 'Energy infrastructure that bills itself, in Bitcoin, with no middleman.', long: 'An ESP32 + INA219 meter publishes consumption over MQTT; the Node backend turns mWh into sats and settles from consumer to producer. Balance empty → 3-reading grace → the relay cuts. Topped up above the minimum → it powers back on by itself. Real-time React + TypeScript dashboard over WebSocket.', notes: ['Fail-safe first: meter silence never causes a cut — a network drop is not a default.', 'Tag idempotency: a repeated reading returns the previous ACK, never a double charge.', 'Hysteresis (3-reading grace + minimum balance to re-arm) kills relay flapping.'] } },
+    { id: 'quizds', n: '02', slot: 'p-quizds', year: '2025', tags: ['Node', 'Express', 'MySQL'],
+      repo: 'https://github.com/camistallica/projetoQuizDS', live: '',
+      pt: { title: 'Quiz DS', blurb: 'Quiz acadêmico em Node + MySQL — 134 commits, 14 forks.', long: 'Aplicação Express com views server-side, camadas de models/controllers/routes, banco MySQL versionado em SQL e roteiro de publicação em Ubuntu Server. Projeto do Técnico em Desenvolvimento de Sistemas que virou base de estudo para outras turmas.', notes: ['Separar rotas, controllers e models cedo é o que deixa o projeto crescer.', 'Schema versionado no repositório evita banco “mágico” na máquina de cada um.', 'Deploy em servidor Linux ensina mais que qualquer aula de deploy.'] },
+      en: { title: 'Quiz DS', blurb: 'Academic quiz on Node + MySQL — 134 commits, 14 forks.', long: 'Express app with server-side views, models/controllers/routes layering, a versioned MySQL schema and an Ubuntu Server deployment path. A Systems Development coursework project that became study material for other classes.', notes: ['Splitting routes, controllers and models early is what lets a project grow.', 'A schema versioned in the repo prevents a "magic" database on each machine.', 'Deploying to a Linux server teaches more than any deployment lecture.'] } },
+    { id: 'apm', n: '03', slot: 'p-apm', year: '2026', tags: ['React', 'TypeScript', 'Vite'],
+      repo: 'https://github.com/camistallica/Apm-senai', live: 'https://aapm-senai.vercel.app',
+      pt: { title: 'APM Senai', blurb: 'Interface web em React + TypeScript, publicada na Vercel.', long: 'Front-end em React com TypeScript sobre Vite e Tailwind, com guidelines de estilo versionadas junto do código e deploy contínuo na Vercel.', notes: ['Guidelines no repositório mantêm o visual coerente quando o projeto cresce.', 'Vite encurta o ciclo de iteração de UI a segundos.', 'Tipagem no front economiza a maior parte dos bugs de dado.'] },
+      en: { title: 'APM Senai', blurb: 'React + TypeScript web interface, shipped on Vercel.', long: 'React front-end in TypeScript on Vite and Tailwind, with style guidelines versioned alongside the code and continuous deployment on Vercel.', notes: ['Guidelines in the repo keep the visual coherent as the project grows.', 'Vite cuts the UI iteration loop down to seconds.', 'Typing the front-end removes most data bugs.'] } }
+  ];
+
+  TIMELINE = [
+    { year: '2023 – 2025', school: 'Etec Albert Einstein',
+      pt: ['Técnico Integrado ao Ensino Médio · Informática para Internet',
+        'fev de 2023 – dez de 2025 · Etec Albert Einstein. Formação voltada ao desenvolvimento de soluções para web: criação, manutenção e gestão de aplicações e websites.',
+        ['Websites em HTML, CSS e JavaScript', 'Frameworks: React Native, Angular.js e Node.js', 'Criação e manutenção de portais, sites e sistemas web', 'Customização de plataformas de conteúdo', 'Modelagem e gerenciamento de bancos de dados para web', 'Design e identidade visual de interfaces digitais', 'Tratamento e otimização de imagens para internet', 'Multimídia e acessibilidade nas páginas', 'Layouts para newsletter e e-mail marketing']],
+      en: ['Technical Secondary Degree · Internet Computing',
+        'Feb 2023 – Dec 2025 · Etec Albert Einstein. Web-focused training: building, maintaining and managing web applications and websites.',
+        ['Websites in HTML, CSS and JavaScript', 'Frameworks: React Native, Angular.js and Node.js', 'Building and maintaining portals, sites and web systems', 'Customising content platforms', 'Modelling and managing databases for the web', 'Design and visual identity for digital interfaces', 'Image processing and optimisation for the web', 'Multimedia and accessibility in pages', 'Layouts for newsletters and email marketing']] },
+    { year: '2025 – 2026', school: 'Etec Albert Einstein',
+      pt: ['Técnico Profissionalizante · Desenvolvimento de Sistemas',
+        'fev de 2025 – jun de 2026 · Etec Albert Einstein. Foco em programação, banco de dados e construção de aplicações web, com projetos práticos de sistemas completos.',
+        ['Aplicações em Java', 'Interfaces e aplicações web com JavaScript e React', 'Modelagem, implementação e consulta em SQL', 'Bancos de dados não relacionais (NoSQL)', 'Análise e levantamento de requisitos', 'Testes funcionais em aplicações', 'Manutenção e evolução de sistemas', 'Versionamento com Git e GitHub']],
+      en: ['Technical Degree · Systems Development',
+        'Feb 2025 – Jun 2026 · Etec Albert Einstein. Focused on programming, databases and web application development, with full end-to-end projects.',
+        ['Applications in Java', 'Web interfaces and apps with JavaScript and React', 'Modelling, implementing and querying in SQL', 'Non-relational databases (NoSQL)', 'Requirements analysis and gathering', 'Functional testing', 'Software maintenance and evolution', 'Version control with Git and GitHub']] },
+    { year: '2026 – 2028', school: 'Universidade Presbiteriana Mackenzie',
+      pt: ['Graduação · Análise e Desenvolvimento de Sistemas',
+        '2026 – 2028 · Universidade Presbiteriana Mackenzie. Em andamento, aprofundando arquitetura de software, engenharia e desenvolvimento mobile.',
+        ['Arquitetura e engenharia de software', 'Estruturas de dados e algoritmos', 'Desenvolvimento mobile: Kotlin, Swift e Flutter']],
+      en: ['BSc · Systems Analysis and Development',
+        '2026 – 2028 · Universidade Presbiteriana Mackenzie. In progress, going deeper into software architecture, engineering and mobile development.',
+        ['Software architecture and engineering', 'Data structures and algorithms', 'Mobile development: Kotlin, Swift and Flutter']] }
+  ];
+
+  SKILLS = [
+    { name: 'Kotlin', level: 5, pt: ['4 anos', 'Coroutines, Flow, KMP. É onde penso mais rápido.'], en: ['4 years', 'Coroutines, Flow, KMP. Where I think fastest.'] },
+    { name: 'Jetpack Compose', level: 5, pt: ['3 anos', 'Estado unidirecional, animação custom, tema por token.'], en: ['3 years', 'Unidirectional state, custom animation, token theming.'] },
+    { name: 'Swift', level: 4, pt: ['2 anos', 'SwiftUI, Combine, Keychain e HIG na régua.'], en: ['2 years', 'SwiftUI, Combine, Keychain, HIG by the book.'] },
+    { name: 'Flutter', level: 4, pt: ['2 anos', 'CustomPainter, Riverpod, build para as duas lojas.'], en: ['2 years', 'CustomPainter, Riverpod, builds for both stores.'] },
+    { name: 'Arquitetura', level: 4, pt: ['—', 'MVVM, Clean por camadas, testes onde dói.'], en: ['—', 'MVVM, layered Clean, tests where it hurts.'] },
+    { name: 'Firebase', level: 3, pt: ['2 anos', 'Auth, Firestore, Crashlytics, remote config.'], en: ['2 years', 'Auth, Firestore, Crashlytics, remote config.'] },
+    { name: 'React + TypeScript', level: 4, pt: ['2 anos', 'Vite, Tailwind e dashboards em tempo real por WebSocket.'], en: ['2 years', 'Vite, Tailwind and real-time dashboards over WebSocket.'] },
+    { name: 'Node + Express', level: 4, pt: ['2 anos', 'APIs REST, MySQL, MQTT e deploy em Ubuntu Server.'], en: ['2 years', 'REST APIs, MySQL, MQTT and Ubuntu Server deployment.'] },
+    { name: 'IoT · ESP32', level: 3, pt: ['1 ano', 'INA219, relé, MQTT e regras de fail-safe em hardware real.'], en: ['1 year', 'INA219, relays, MQTT and fail-safe rules on real hardware.'] },
+    { name: 'Figma', level: 3, pt: ['—', 'Leio design system e devolvo em componente.'], en: ['—', 'I read a design system and return components.'] }
+  ];
+
+  TRACKS = [
+    { title: 'Master of Puppets', artist: 'Metallica', pt: 'refatorar', en: 'refactor', on: true },
+    { title: 'Blackened', artist: 'Metallica', pt: 'build longo', en: 'long build' },
+    { title: 'Fade to Black', artist: 'Metallica', pt: 'debug 2h', en: 'debug 2am' },
+    { title: 'Orion', artist: 'Metallica', pt: 'foco puro', en: 'deep focus' },
+    { title: 'The Unforgiven', artist: 'Metallica', pt: 'code review', en: 'code review' },
+    { title: 'Nothing Else Matters', artist: 'Metallica', pt: 'merge feito', en: 'merged' }
+  ];
+
+  EDU = [
+    { period: '2026 – 2028', school: 'Universidade Presbiteriana Mackenzie',
+      pt: ['Graduação em Análise e Desenvolvimento de Sistemas', 'cursando', '2 anos'],
+      en: ['BSc in Systems Analysis and Development', 'in progress', '2 years'] },
+    { period: 'fev 2025 – jun 2026', periodEn: 'Feb 2025 – Jun 2026', school: 'Etec Albert Einstein',
+      pt: ['Técnico em Desenvolvimento de Sistemas', 'concluído', '1 ano e 4 meses'],
+      en: ['Technical · Systems Development', 'completed', '1 yr 4 mo'] },
+    { period: 'fev 2023 – dez 2025', periodEn: 'Feb 2023 – Dec 2025', school: 'Etec Albert Einstein',
+      pt: ['Técnico Integrado ao Ensino Médio · Informática para Internet', 'concluído', '2 anos e 10 meses'],
+      en: ['Technical Secondary · Internet Computing', 'completed', '2 yr 10 mo'] }
+  ];
+
+  JOB = {
+    period: '2026 — atual', periodEn: '2026 — now',
+    pt: { role: 'Estagiária de Software', company: 'SyOS', status: 'atual',
+      desc: 'Desenvolvimento de aplicações mobile e web: programação nativa para iOS e Android e multiplataforma em Flutter.',
+      items: ['Nativo iOS (Swift) e Android (Kotlin)', 'Multiplataforma com Flutter', 'Endpoints em API Node.js', 'Criação e atualização de páginas web', 'Coleta e análise de feedback dos usuários', 'Avaliação de novas funcionalidades e refatoração das existentes'],
+      shipLabel: 'entregue', ship: 'SyOS Install, na Play Store — diversas funcionalidades novas desenvolvidas por mim.' },
+    en: { role: 'Software Intern', company: 'SyOS', status: 'current',
+      desc: 'Mobile and web development: native iOS and Android plus cross-platform work in Flutter.',
+      items: ['Native iOS (Swift) and Android (Kotlin)', 'Cross-platform with Flutter', 'Endpoints on a Node.js API', 'Building and updating web pages', 'Collecting and analysing user feedback', 'Assessing new features and refactoring existing ones'],
+      shipLabel: 'shipped', ship: 'SyOS Install, on the Play Store — several new features built by me.' }
+  };
+
+  NAV = [
+    { tab: 'home', n: '01', pt: 'Casa', en: 'Home' },
+    { tab: 'work', n: '02', pt: 'Obras', en: 'Work' },
+    { tab: 'time', n: '03', pt: 'Linha', en: 'Path' },
+    { tab: 'skills', n: '04', pt: 'Stack', en: 'Stack' },
+    { tab: 'sound', n: '05', pt: 'Trilha', en: 'Sound' },
+    { tab: 'about', n: '06', pt: 'Sobre', en: 'About' }
+  ];
+
+  uid = 'noc-' + Math.random().toString(36).slice(2, 8);
+
+  get rootEl() {
+    if (!this._root || !this._root.isConnected) this._root = document.querySelector('[data-scope="' + this.uid + '"]');
+    return this._root;
+  }
+
+  schedule() {
+    if (this._raf) return;
+    this._raf = requestAnimationFrame(() => {
+      this._raf = null;
+      this.applyTheme();
+      this.applyLang();
+      this.observe();
+      if (this._navPending) { this._navPending = false; this.transition(); }
+    });
+  }
+
+  scope(sel) {
+    const root = this.rootEl;
+    return root ? Array.from(root.querySelectorAll(sel)) : [];
+  }
+
+  layers() {
+    const root = this.rootEl;
+    if (!root) return {};
+    const kids = Array.from(root.children);
+    return { cursor: kids[2], wipe: kids[3], main: root.querySelector('main') };
+  }
+
+  applyTheme() {
+    if (!this.rootEl) return;
+    const vars = this.THEMES[this.state.theme];
+    Object.keys(vars).forEach(k => this.rootEl.style.setProperty(k, vars[k]));
+  }
+
+  applyLang() {
+    const en = this.state.lang === 'en';
+    this.scope('[data-en]').forEach(el => {
+      if (!el.dataset.pt) el.dataset.pt = el.textContent;
+      const next = en ? el.dataset.en : el.dataset.pt;
+      if (el.textContent !== next) el.textContent = next;
+    });
+  }
+
+  observe() {
+    if (!this.rootEl) return;
+    this._seen = this._seen || new WeakSet();
+    const scroller = this.layers().main;
+    if (!this._io && scroller) {
+      this._io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting || this._seen.has(e.target)) return;
+          this._seen.add(e.target);
+          e.target.animate(
+            [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 520, easing: 'cubic-bezier(.2,.7,.2,1)' }
+          );
+          this._io.unobserve(e.target);
+        });
+      }, { root: scroller, threshold: 0.15 });
+    }
+    if (!this._io) return;
+    this.scope('[data-rev]').forEach(el => { if (!this._seen.has(el)) this._io.observe(el); });
+  }
+
+  transition() {
+    const { main, wipe } = this.layers();
+    if (main) {
+      main.scrollTop = 0;
+      main.animate(
+        [{ opacity: 0, transform: 'translateY(20px) scale(.988)', filter: 'blur(7px)' }, { opacity: 1, transform: 'none', filter: 'none' }],
+        { duration: 460, easing: 'cubic-bezier(.2,.7,.2,1)' }
+      );
+    }
+    if (wipe) {
+      wipe.animate(
+        [
+          { transform: 'scaleY(0)', transformOrigin: 'bottom', opacity: .9 },
+          { transform: 'scaleY(1)', transformOrigin: 'bottom', opacity: .55, offset: .42 },
+          { transform: 'scaleY(1)', transformOrigin: 'top', opacity: .5, offset: .46 },
+          { transform: 'scaleY(0)', transformOrigin: 'top', opacity: .9 }
+        ],
+        { duration: 540, easing: 'cubic-bezier(.6,0,.2,1)' }
+      );
+    }
+  }
+
+  go = tab => () => {
+    if (this.state.tab === tab && !this.state.pid) return;
+    this._navPending = true;
+    this.setState({ tab, pid: null });
+  };
+
+  open = id => () => { this._navPending = true; this.setState({ tab: 'detail', pid: id }); };
+
+  onMove = e => {
+    const { cursor } = this.layers();
+    if (!cursor || !this.rootEl) return;
+    const b = this.rootEl.getBoundingClientRect();
+    cursor.style.opacity = '1';
+    cursor.style.transform = 'translate(' + (e.clientX - b.left) + 'px,' + (e.clientY - b.top) + 'px)';
+    const hot = e.target.closest && e.target.closest('[data-hot]');
+    cursor.style.width = hot ? '40px' : '22px';
+    cursor.style.height = hot ? '40px' : '22px';
+    cursor.style.margin = hot ? '-20px 0 0 -20px' : '-11px 0 0 -11px';
+    cursor.style.background = hot ? 'var(--acctint)' : 'transparent';
+  };
+
+  onLeave = () => {
+    const { cursor } = this.layers();
+    if (cursor) cursor.style.opacity = '0';
+  };
+
+  onScroll = e => {
+    const y = e.currentTarget.scrollTop;
+    this.scope('[data-par]').forEach(el => {
+      const k = parseFloat(el.getAttribute('data-par')) || 0;
+      const base = el.getAttribute('data-basetransform') || '';
+      el.style.transform = 'translateY(' + (y * k).toFixed(1) + 'px)' + (base ? ' ' + base : '');
+    });
+  };
+
+  renderVals() {
+    this.schedule();
+    this.kickFetch();
+    const en = this.state.lang === 'en';
+    const L = (o) => (en ? o.en : o.pt);
+    const hero = this.props.hero || 'poster';
+    const acc = 'var(--acc)';
+
+    const repos = this.state.repos;
+    const byName = {};
+    if (repos) repos.forEach(r => { byName[String(r.name).toLowerCase()] = r; });
+    const slug = url => String(url || '').split('/').pop().toLowerCase();
+
+    const proj = this.PROJECTS.map(p => {
+      const t = L(p);
+      const gh = byName[slug(p.repo)];
+      const meta = gh
+        ? (gh.stargazers_count ? '★ ' + gh.stargazers_count + ' · ' : '') + (en ? 'updated ' : 'atualizado ') + this.when(gh.pushed_at || gh.updated_at, en)
+        : p.year;
+      return { id: p.id, n: p.n, slot: p.slot, year: p.year, tags: p.tags, tagStr: p.tags.join(' · '),
+        title: t.title.toUpperCase(), blurb: t.blurb, long: t.long, notes: t.notes, open: this.open(p.id), meta };
+    });
+
+    const curatedSlugs = this.PROJECTS.map(p => slug(p.repo));
+    const extras = (repos || [])
+      .filter(r => !r.fork && curatedSlugs.indexOf(String(r.name).toLowerCase()) === -1)
+      .slice(0, 8)
+      .map(r => ({ name: r.name, url: r.html_url,
+        desc: r.description || (en ? 'No description on GitHub.' : 'Sem descrição no GitHub.'),
+        lang: r.language || (r.stargazers_count ? '★ ' + r.stargazers_count : '—') }));
+
+    const tag = this.state.tag;
+    const filtered = tag === 'all' ? proj : proj.filter(p => p.tags.indexOf(tag) > -1);
+    const chipTags = ['all', 'React', 'Node', 'TypeScript', 'IoT', 'MySQL'];
+    const tagChips = chipTags.map(t => ({
+      label: t === 'all' ? (en ? 'All' : 'Todos') : t,
+      pick: () => this.setState({ tag: t }),
+      fill: t === tag
+        ? 'position:absolute;inset:0;background:' + acc
+        : 'position:absolute;inset:0;background:transparent',
+      txt: 'position:relative;color:' + (t === tag ? (this.state.theme === 'dark' ? '#161826' : '#f3f5fe') : 'inherit')
+    }));
+
+    const cur = this.PROJECTS.find(p => p.id === this.state.pid) || this.PROJECTS[0];
+    const curL = L(cur);
+    const idx = this.PROJECTS.indexOf(cur);
+    const nxt = this.PROJECTS[(idx + 1) % this.PROJECTS.length];
+    const detail = {
+      n: cur.n, year: cur.year, slot: cur.slot, title: curL.title.toUpperCase(), long: curL.long, notes: curL.notes,
+      specs: [
+        { k: 'Stack', v: cur.tags.slice(0, 2).join(' + ') },
+        { k: en ? 'Also' : 'Também', v: cur.tags.slice(2).join(' + ') || '—' },
+        { k: en ? 'Role' : 'Papel', v: en ? 'Design + code' : 'Design + código' },
+        (byName[slug(cur.repo)]
+          ? { k: en ? 'Updated' : 'Atualizado', v: this.when(byName[slug(cur.repo)].pushed_at || byName[slug(cur.repo)].updated_at, en) }
+          : { k: en ? 'Year' : 'Ano', v: cur.year })
+      ],
+      repo: cur.repo, live: cur.live || '#', hasLive: !!cur.live,
+      repoLabel: en ? 'Source on GitHub' : 'Código no GitHub',
+      liveLabel: en ? 'Live demo' : 'Ver rodando'
+    };
+
+    const skills = this.SKILLS.map(s => {
+      const t = L(s);
+      return { name: s.name.toUpperCase(), years: t[0], note: t[1], open: this.state.skill === s.name,
+        toggle: () => this.setState({ skill: this.state.skill === s.name ? null : s.name }),
+        pips: [1, 2, 3, 4, 5].map(i => 'width:7px;height:7px;display:block;background:' + (i <= s.level ? acc : 'transparent') + ';border:1px solid ' + (i <= s.level ? acc : 'var(--line)')) };
+    });
+
+    const nowTrack = this.TRACKS[0];
+    return {
+      uid: this.uid,
+      heroPoster: hero === 'poster', heroSetlist: hero === 'setlist', heroCollage: hero === 'collage',
+      isHome: this.state.tab === 'home', isWork: this.state.tab === 'work', isDetail: this.state.tab === 'detail',
+      isTime: this.state.tab === 'time', isSkills: this.state.tab === 'skills', isSound: this.state.tab === 'sound',
+      isAbout: this.state.tab === 'about',
+      onMove: this.onMove, onLeave: this.onLeave, onScroll: this.onScroll,
+      goHome: this.go('home'), goWork: this.go('work'), goSound: this.go('sound'), back: this.go('work'),
+      toggleLang: () => this.setState({ lang: en ? 'pt' : 'en' }),
+      toggleTheme: () => this.setState({ theme: this.state.theme === 'dark' ? 'light' : 'dark' }),
+      ptFill: en ? 'display:none' : 'position:absolute;left:5px;right:5px;bottom:3px;height:2px;background:' + acc,
+      enFill: en ? 'position:absolute;left:5px;right:5px;bottom:3px;height:2px;background:' + acc : 'display:none',
+      themeGlyph: 'display:block;width:12px;height:12px;border-radius:50%;border:1.5px solid var(--ink);' + (this.state.theme === 'dark' ? 'box-shadow:inset 4px -3px 0 0 var(--ink)' : 'background:var(--ink)'),
+      projects: filtered, featured: proj.slice(0, 2), count: filtered.length, tagChips,
+      extras, hasExtras: extras.length > 0,
+      liveLabel: repos
+        ? (en ? 'live from GitHub' : 'ao vivo do GitHub')
+        : this.state.repoErr
+          ? (en ? 'GitHub unavailable — showing saved data' : 'GitHub indisponível — dados salvos')
+          : (en ? 'syncing with GitHub…' : 'sincronizando com o GitHub…'),
+      liveDot: repos
+        ? 'width:7px;height:7px;border-radius:50%;background:' + acc + ';box-shadow:0 0 0 3px var(--acctint);flex:none'
+        : this.state.repoErr
+          ? 'width:7px;height:7px;border-radius:50%;border:1px solid var(--line);flex:none'
+          : 'width:7px;height:7px;border-radius:50%;background:' + acc + ';animation:noc-blink 1.2s ease-in-out infinite;flex:none',
+      detail, nextProject: this.open(nxt.id), nextLabel: (en ? 'Next · ' : 'Próximo · ') + L(nxt).title.toUpperCase(),
+      job: Object.assign({ period: en ? this.JOB.periodEn : this.JOB.period }, en ? this.JOB.en : this.JOB.pt),
+      timeline: this.TIMELINE.slice().reverse().map(e => ({ year: e.year, title: L(e)[0], desc: L(e)[1], items: L(e)[2] })),
+      skills,
+      tracks: this.TRACKS.map((t, i) => ({ n: String(i + 1).padStart(2, '0'), title: t.title, artist: t.artist, mood: en ? t.en : t.pt })),
+      nowPlaying: nowTrack.title + ' — ' + nowTrack.artist,
+      education: this.EDU.map(e => ({ title: L(e)[0], status: L(e)[1], meta: (en && e.periodEn ? e.periodEn : e.period) + ' · ' + L(e)[2] + ' · ' + e.school })),
+      setlist: this.NAV.filter(n => n.tab !== 'home').map(n => ({
+        n: n.n, label: (en ? n.en : n.pt).toUpperCase(), go: this.go(n.tab),
+        meta: n.tab === 'work' ? '03' : n.tab === 'skills' ? '07' : n.tab === 'sound' ? '06' : n.tab === 'time' ? '06' : '—'
+      })),
+      nav: this.NAV.map(n => {
+        const on = this.state.tab === n.tab || (n.tab === 'work' && this.state.tab === 'detail');
+        return { n: n.n, label: (en ? n.en : n.pt).toUpperCase(), go: this.go(n.tab),
+          bar: on ? 'position:absolute;left:24%;right:24%;top:0;height:2px;background:' + acc : 'display:none',
+          numStyle: 'font-size:8px;letter-spacing:.1em;font-variant-numeric:tabular-nums;color:' + (on ? acc : 'var(--dim)'),
+          labelStyle: 'font-size:9px;font-weight:600;letter-spacing:.08em;color:' + (on ? 'var(--ink)' : 'var(--dim)') };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
