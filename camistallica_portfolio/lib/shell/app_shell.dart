@@ -10,8 +10,18 @@ class AppShell extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: n.bg,
-      body: const Center(
-        child: Text('shell'),
+      body: Center(
+        child: Column(
+          children: [Container(
+            height: 48, color: Colors.red
+          ),
+          Expanded(child: Container(
+            color:Colors.green
+          )),
+          Container(
+            height: 56, color: Colors.blue
+          )],
+        ),
       ),
     );
   }
