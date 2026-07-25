@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/nocturne_theme.dart';
 
-enum AppTab{
+enum AppTab {
   home('01', 'Casa'),
   work('02', 'Obras'),
   path('03', 'Linha'),
@@ -11,12 +11,19 @@ enum AppTab{
 
   const AppTab(this.number, this.label);
 
-final String number;
-final String label;
+  final String number;
+  final String label;
 }
 
-class AppShell extends StatelessWidget {
+class AppShell extends StatefulWidget {
   const AppShell({super.key});
+
+  @override
+  State<AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<AppShell> {
+  AppTab _tab = AppTab.home;
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +31,41 @@ class AppShell extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: n.bg,
-      body: Center(
-        child: Column(
-          children: [Container(
-            height: 48, color: Colors.red
+      body: Column(
+        children: [
+          Container(height: 48, color: Colors.red),
+
+          Expanded(
+            child: Container(
+              color: Colors.green,
+              child: Center(child: Text(_tab.label)),
+            ),
           ),
-          Expanded(child: Container(
-            color:Colors.green
-          )),
+
           Container(
-            height: 56, color: Colors.blue,
-          child: Row(children:AppTab.values.map((tab) => Expanded(child: Center(
-            child: Text(tab.label),
+            height: 56,
+            color: Colors.blue,
+            child: Row(
+              children: AppTab.values.map((tab) {
+                final ativo = tab == _tab;
+
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _tab = tab),
+                    child: Center(
+                      child: Text(
+                        tab.label,
+                        style: TextStyle(
+                          color: ativo ? Colors.white : Colors.white54,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-          )).toList(),
-          ),
-        )],
-        ),
+        ],
       ),
     );
   }
