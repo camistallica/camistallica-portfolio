@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/nocturne_theme.dart';
 
-class AppShell {} extends StatelessWidget {
+class AppShell extends StatelessWidget {
   const AppShell({super.key});
 
   @override
