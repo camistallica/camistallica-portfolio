@@ -19,10 +19,38 @@ class AppShell extends StatelessWidget {
             color:Colors.green
           )),
           Container(
-            height: 56, color: Colors.blue
-          )],
+            height: 56, color: Colors.blue,
+          child: Row(
+            children: [
+              Expanded(child: Center(
+                  child: Text('Casa')
+                  ),
+              ),
+              Expanded(child: Center(
+                child: Text('Obras')
+                ),
+              ),
+              Expanded(child: Center(
+                child: Text('Linha')
+                ),
+              ),
+              Expanded(child: Center(
+                child: Text('Stack')
+                ),
+              ),
+              Expanded(child: Center(
+                child: Text('Trilha')
+                ),
+              ),
+              Expanded(child: Center(
+                child: Text('Sobre')
+                ),
+              ),
+          ],
         ),
       ),
-    );
+    ]),
+  ),  
+  );
   }
 }
