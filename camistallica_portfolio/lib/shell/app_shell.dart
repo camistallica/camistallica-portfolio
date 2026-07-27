@@ -56,26 +56,37 @@ class _AppShellState extends State<AppShell> {
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => setState(() => _tab = tab),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                    child: Stack(
+                      alignment: Alignment.topCenter,
                       children: [
-                        Text(
-                          tab.number,
-                          style: label(
-                            8,
-                            tracking: .08,
-                            color: ativo ? n.acc : n.dim,
-                          ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              tab.number,
+                              style: label(
+                                8,
+                                tracking: .08,
+                                color: ativo ? n.acc : n.dim,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              tab.label.toUpperCase(),
+                              style: label(
+                                9,
+                                tracking: .08,
+                                color: ativo ? n.ink : n.dim,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 3),
-                        Text(
-                          tab.label.toUpperCase(),
-                          style: label(
-                            9,
-                            tracking: .08,
-                            color: ativo ? n.ink : n.dim,
+
+                        if (ativo)
+                          FractionallySizedBox(
+                            widthFactor: .52,
+                            child: Container(height: 2, color: n.acc),
                           ),
-                        ),
                       ],
                     ),
                   ),
