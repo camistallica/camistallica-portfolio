@@ -43,25 +43,40 @@ class _AppShellState extends State<AppShell> {
           ),
 
           Container(
-            height: 56,
             decoration: BoxDecoration(
               color: n.bg,
-              border: Border(top: BorderSide(color: n.line))
+              border: Border(top: BorderSide(color: n.line)),
             ),
+            padding: const EdgeInsets.fromLTRB(2, 9, 2, 10),
             child: Row(
               children: AppTab.values.map((tab) {
                 final ativo = tab == _tab;
 
                 return Expanded(
                   child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
                     onTap: () => setState(() => _tab = tab),
-                    child: Center(
-                      child: Text(
-                        tab.label,
-                        style: TextStyle(
-                          color: ativo ? Colors.white : Colors.white54,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          tab.number,
+                          style: label(
+                            8,
+                            tracking: .08,
+                            color: ativo ? n.acc : n.dim,
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 3),
+                        Text(
+                          tab.label.toUpperCase(),
+                          style: label(
+                            9,
+                            tracking: .08,
+                            color: ativo ? n.ink : n.dim,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
