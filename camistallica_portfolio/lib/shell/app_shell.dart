@@ -25,6 +25,65 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   AppTab _tab = AppTab.home;
 
+  Widget _header() {
+    final n = context.n;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
+      decoration: BoxDecoration(
+        color: n.bg,
+        border: Border(bottom: BorderSide(color: n.line)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 26,
+                height: 26,
+                decoration: BoxDecoration(
+                  border: Border.all(color: n.acc),
+                  borderRadius: R.ctrl,
+                ),
+                child: Center(
+                  child: Text(
+                    'CF',
+                    style: display(11, tracking: -.02, color: n.acc),
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 9),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'CAMILA FERREIRA',
+                    style: display(
+                      12,
+                      tracking: .02,
+                      height: 1.2,
+                      color: n.ink,
+                    ),
+                  ),
+                  Text(
+                    'DEV MOBILE · KOTLIN',
+                    style: label(9.5, tracking: .14, color: n.dim),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          const SizedBox.shrink(),
+        ],
+      ),
+    );
+  }
+
   Widget _navItem(AppTab tab) {
     final n = context.n;
     final ativo = tab == _tab;
@@ -70,9 +129,7 @@ class _AppShellState extends State<AppShell> {
         border: Border(top: BorderSide(color: n.line)),
       ),
       padding: const EdgeInsets.fromLTRB(2, 9, 2, 10),
-      child: Row(
-        children: AppTab.values.map(_navItem).toList(),
-      ),
+      child: Row(children: AppTab.values.map(_navItem).toList()),
     );
   }
 
@@ -84,7 +141,7 @@ class _AppShellState extends State<AppShell> {
       backgroundColor: n.bg,
       body: Column(
         children: [
-          Container(height: 48, color: Colors.red),
+          _header(),
           Expanded(
             child: Container(
               color: Colors.green,
