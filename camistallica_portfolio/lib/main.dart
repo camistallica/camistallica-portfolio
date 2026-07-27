@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'theme/nocturne_theme.dart';
 import 'shell/app_shell.dart';
 
-void main(){
+void main() {
   runApp(const CamisApp());
 }
 

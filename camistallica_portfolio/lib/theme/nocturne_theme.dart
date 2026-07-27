@@ -58,18 +58,17 @@ class Nocturne extends ThemeExtension<Nocturne> {
     Color? acc,
     Color? accDim,
     Color? accTint,
-  }) =>
-      Nocturne(
-        bg: bg ?? this.bg,
-        surf: surf ?? this.surf,
-        raise: raise ?? this.raise,
-        ink: ink ?? this.ink,
-        dim: dim ?? this.dim,
-        line: line ?? this.line,
-        acc: acc ?? this.acc,
-        accDim: accDim ?? this.accDim,
-        accTint: accTint ?? this.accTint,
-      );
+  }) => Nocturne(
+    bg: bg ?? this.bg,
+    surf: surf ?? this.surf,
+    raise: raise ?? this.raise,
+    ink: ink ?? this.ink,
+    dim: dim ?? this.dim,
+    line: line ?? this.line,
+    acc: acc ?? this.acc,
+    accDim: accDim ?? this.accDim,
+    accTint: accTint ?? this.accTint,
+  );
 
   @override
   Nocturne lerp(ThemeExtension<Nocturne>? other, double t) {
@@ -98,13 +97,12 @@ TextStyle display(
   double tracking = -0.02,
   double height = 0.85,
   Color? color,
-}) =>
-    GoogleFonts.archivoBlack(
-      fontSize: size,
-      height: height,
-      letterSpacing: size * tracking,
-      color: color,
-    );
+}) => GoogleFonts.archivoBlack(
+  fontSize: size,
+  height: height,
+  letterSpacing: size * tracking,
+  color: color,
+);
 
 /// Inter Tight.
 TextStyle body(
@@ -113,14 +111,13 @@ TextStyle body(
   double tracking = 0,
   double height = 1.45,
   Color? color,
-}) =>
-    GoogleFonts.interTight(
-      fontSize: size,
-      fontWeight: weight,
-      height: height,
-      letterSpacing: size * tracking,
-      color: color,
-    );
+}) => GoogleFonts.interTight(
+  fontSize: size,
+  fontWeight: weight,
+  height: height,
+  letterSpacing: size * tracking,
+  color: color,
+);
 
 /// Rótulos versaletes do design: uppercase + tracking largo.
 /// Ex.: label(9.5, tracking: .2) para o kicker "LADO A · SETLIST".
@@ -129,8 +126,7 @@ TextStyle label(
   double tracking = 0.14,
   FontWeight weight = FontWeight.w600,
   Color? color,
-}) =>
-    body(size, weight: weight, tracking: tracking, height: 1.1, color: color);
+}) => body(size, weight: weight, tracking: tracking, height: 1.1, color: color);
 
 ThemeData buildTheme(Nocturne n) {
   final base = n == Nocturne.dark ? ThemeData.dark() : ThemeData.light();
