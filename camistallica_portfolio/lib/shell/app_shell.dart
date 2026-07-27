@@ -44,7 +44,10 @@ class _AppShellState extends State<AppShell> {
 
           Container(
             height: 56,
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              color: n.bg,
+              border: Border(top: BorderSide(color: n.line))
+            ),
             child: Row(
               children: AppTab.values.map((tab) {
                 final ativo = tab == _tab;
